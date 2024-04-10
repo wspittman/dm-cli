@@ -1,0 +1,31 @@
+{
+  "engines": {
+    "node": ">=20.6.0"
+  },
+  "name": "dm-cli",
+  "version": "0.1.0",
+  "description": "A cli for D&D DM actions",
+  "main": "index.js",
+  "author": "William Pittman (https://github.com/wspittman)",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint src --fix && prettier src --write",
+    "start": "ts-node src/index.ts"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "@typescript-eslint/eslint-plugin": "^7.6.0",
+    "@typescript-eslint/parser": "^7.6.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "prettier": "^3.2.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@dice-roller/rpg-dice-roller": "^5.5.0"
+  }
+}
