@@ -1,18 +1,19 @@
 import { stdin as input, stdout as output } from 'node:process';
 import * as readline from 'node:readline/promises';
+import { popFirstWord } from './parsing';
 
 const rl = readline.createInterface({ input, output });
 
 export async function getCommand(): Promise<{
   command: string;
-  args: string;
+  rest: string;
 }> {
-  const input = (await rl.question('>')).trim();
-  const index = input.indexOf(' ');
+  const input = await rl.question('>');
+  const { word, rest } = popFirstWord(input);
 
   return {
-    command: (index > 0 ? input.slice(0, index) : input).toLowerCase(),
-    args: index > 0 ? input.slice(index) : '',
+    command: word,
+    rest,
   };
 }
 

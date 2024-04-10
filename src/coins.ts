@@ -1,6 +1,6 @@
-type CoinType = 'cp' | 'sp' | 'ep' | 'gp' | 'pp';
+import { popFirstWord, splitAndMap } from './parsing';
 
-const conversion: Record<CoinType, number> = {
+const conversion: Record<string, number> = {
   cp: 0.01,
   sp: 0.1,
   ep: 0.5,
@@ -9,21 +9,18 @@ const conversion: Record<CoinType, number> = {
 };
 
 function parse(str: string) {
-  return str
-    .split(/[;,]/)
-    .map((entry) => {
-      const [rawAmount, type] = entry.trim().split(/\s+/);
-      const amount = Number(rawAmount);
-      const rate = conversion[type as CoinType];
+  return splitAndMap(str, /[;,]/, (entry) => {
+    const { word: rawAmount, rest: type } = popFirstWord(entry);
+    const amount = Number(rawAmount);
+    const rate = conversion[type];
 
-      if (!amount || !rate) {
-        console.error(`Invalid coin entry: ${entry}`);
-        return { amount: 0, type: 'gp', equivalent: 0 };
-      }
+    if (!amount || !rate) {
+      console.error(`Invalid coin entry: ${entry}`);
+      return;
+    }
 
-      return { amount, type, equivalent: amount * rate };
-    })
-    .filter(({ amount }) => amount > 0);
+    return { amount, type, equivalent: amount * rate };
+  });
 }
 
 export function coins(str: string) {

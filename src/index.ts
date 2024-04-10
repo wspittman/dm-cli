@@ -1,8 +1,9 @@
 import { coins } from './coins';
+import { price } from './price';
 import { closeInput, getCommand } from './userInput';
 
 async function main() {
-  const { command, args } = await getCommand();
+  const { command, rest } = await getCommand();
 
   switch (command) {
     case 'clear':
@@ -18,7 +19,11 @@ async function main() {
     case 'coins':
     case 'coin':
     case 'c':
-      coins(args);
+      coins(rest);
+      break;
+    case 'price':
+    case 'p':
+      price(rest);
       break;
     default:
       console.log('What?');
